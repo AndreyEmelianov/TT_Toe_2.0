@@ -14,7 +14,7 @@ export function AuthFromLayout({
   fields,
   actions,
   error,
-  onSubmit,
+  action,
 }: {
   title: string;
   description: string;
@@ -22,7 +22,7 @@ export function AuthFromLayout({
   fields: React.ReactNode;
   actions: React.ReactNode;
   error: React.ReactNode;
-  onSubmit: React.FormEventHandler<HTMLFormElement>;
+  action: (formData: FormData) => void;
 }) {
   return (
     <Card className="w-full max-w-md">
@@ -31,7 +31,7 @@ export function AuthFromLayout({
         <CardDescription className="text-center">{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form action={action} className="space-y-4">
           {fields}
           {error}
           {actions}

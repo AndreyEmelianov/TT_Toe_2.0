@@ -1,7 +1,7 @@
 import { Either, matchEither } from '@/shared/lib/either';
 import { Alert, AlertDescription } from '@/shared/ui/alert';
 
-export function AuthError({ error }: { error: Either<string, null> }) {
+export function AuthError({ error }: { error: Either<string, unknown> }) {
   return matchEither(error, {
     left: (error) => (
       <Alert variant="destructive">
