@@ -2,23 +2,18 @@
 import { GameId } from '@/kernel/ids';
 import { GameLayout } from '../ui/layout';
 import { GamePlayers } from '../ui/players';
-import { GameDomain } from '@/entities/game';
 import { GameStatus } from '../ui/status';
 import { GameField } from '../ui/field';
+import { useGame } from '../model/use-game';
 
 export function Game({ gameId }: { gameId: GameId }) {
-  const game: GameDomain.GameEntity = {
-    id: '1',
-    creator: {
-      id: '1',
-      login: 'test1',
-      rating: 1000,
-    },
-    field: Array(9).fill(null),
-    status: 'idle',
-  };
+  const { game, isPending } = useGame(gameId);
 
   const onCellClick = () => {};
+
+  if (!game || isPending) {
+    return <GameLayout status={'Загрузка'} />;
+  }
 
   return (
     <GameLayout
