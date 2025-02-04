@@ -7,7 +7,7 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   const { session } = await sessionService.verifySession();
 
   return (
-    <div>
+    <div className="flex flex-col grow">
       <header className="px-10 py-4 flex flex-row gap-4 justify-between items-center border-b border-b-primary/50">
         <div className="text-xl">TT-Toe Online</div>
         <div className="flex items-center gap-4">
