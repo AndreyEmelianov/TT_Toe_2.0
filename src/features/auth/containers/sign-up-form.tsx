@@ -6,6 +6,7 @@ import { BottomLink } from '../ui/bottom-link';
 import { AuthError } from '../ui/auth-error';
 import { signUpAction, SignUpFormState } from '../actions/sign-up';
 import { useActionState } from '@/shared/lib/react';
+import { routes } from '@/kernel/routes';
 
 export function SignUpForm() {
   const [formState, action, isPending] = useActionState(signUpAction, {} as SignUpFormState);
@@ -16,7 +17,7 @@ export function SignUpForm() {
       description="Create your account to get started"
       actions={<SubmitButton isPending={isPending}>Sign Up</SubmitButton>}
       fields={<AuthFormFields {...formState} />}
-      link={<BottomLink text="Already have an account?" linkText="Sing In" url="/sign-in" />}
+      link={<BottomLink text="Already have an account?" linkText="Sing In" url={routes.signIn()} />}
       error={<AuthError error={formState.errors?._errors} />}
       action={action}
     />

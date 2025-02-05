@@ -6,7 +6,5 @@ export async function getIdleGames(): Promise<GameIdleEntity[]> {
     status: 'idle',
   });
 
-  console.log(games);
-
   return games as GameIdleEntity[];
 }
