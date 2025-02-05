@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { createSSEStream } from '@/shared/lib/sse/server';
 import { getGameById } from '@/entities/game/server';
 import { GameId } from '@/kernel/ids';
+import { gameEvents } from '../services/game-events';
 
 export async function getGameStream(
   req: NextRequest,
@@ -22,7 +23,11 @@ export async function getGameStream(
 
   write(game);
 
-  addDisconnectListener(() => {});
+  const unsubscribeGame = await gameEvents.addGameListener(game.id, (event) => {
+    write(event.data);
+  });
+
+  addDisconnectListener(unsubscribeGame);
 
   return response;
 }

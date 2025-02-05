@@ -19,7 +19,7 @@ export async function GamesList() {
           rating={game.creator.rating}
           actions={
             <Link href={routes.game(game.id)}>
-              <Button asChild>Подключиться</Button>
+              <Button>Подключиться</Button>
             </Link>
           }
         />
