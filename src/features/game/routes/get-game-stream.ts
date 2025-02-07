@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server';
 import { createSSEStream } from '@/shared/lib/sse/server';
 import { getGameById, surrenderGame } from '@/entities/game/server';
 import { GameId } from '@/kernel/ids';
-import { gameEvents } from '../services/game-events';
+import { gameEvents } from '../../../entities/game/services/game-events';
 import { getCurrentUser } from '@/entities/user/server';
 
 export async function getGameStream(
@@ -25,16 +25,13 @@ export async function getGameStream(
 
   write(game);
 
-  const unwatch = await gameEvents.addGameListener(game.id, (event) => {
+  const unwatch = await gameEvents.addGameChangedListener(game.id, (event) => {
     write(event.data);
   });
 
   addDisconnectListener(async () => {
-    const result = await surrenderGame(id, user);
+    await surrenderGame(id, user);
 
-    if (result.type === 'right') {
-      gameEvents.emit(result.value);
-    }
     unwatch();
   });
 
