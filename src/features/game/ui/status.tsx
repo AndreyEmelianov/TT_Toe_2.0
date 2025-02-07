@@ -7,12 +7,12 @@ export const GameStatus = ({ game }: { game: GameDomain.GameEntity }) => {
     }
 
     case 'inProgress': {
-      const currentSymbol = GameDomain.getGameCurrentStep(game);
+      const currentSymbol = GameDomain.getGameCurrentSymbol(game);
       return <div className="text-lg mb-4">Ход: {currentSymbol}</div>;
     }
 
     case 'gameOver': {
-      const currentSymbol = GameDomain.getGameCurrentStep(game);
+      const currentSymbol = GameDomain.getPlayerSymbol(game.winner, game);
       return <div className="text-lg mb-4">Победитель: {currentSymbol}</div>;
     }
 

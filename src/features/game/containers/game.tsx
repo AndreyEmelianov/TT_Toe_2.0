@@ -11,7 +11,7 @@ export async function Game({ gameId }: { gameId: GameId }) {
 
   let game = await getGameById(gameId);
 
-  if (!game) {
+  if (!game || !user) {
     redirect('/');
   }
 
@@ -23,5 +23,5 @@ export async function Game({ gameId }: { gameId: GameId }) {
     }
   }
 
-  return <GameClient gameDefault={game} />;
+  return <GameClient gameDefault={game} player={user} />;
 }
